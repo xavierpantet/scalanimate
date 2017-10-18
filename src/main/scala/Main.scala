@@ -1,6 +1,3 @@
-import scala.scalajs.js.JSApp
-import scala.scalajs.js.annotation.JSExport
-
 import doodle.core.{Angle, Color}
 
 import scala.concurrent.duration._
@@ -9,9 +6,8 @@ import scalanimate.shapes.mutable.{Circle, Rectangle}
 import scalanimate.core.TimeControls._
 
 
-object Main extends JSApp {
-  @JSExport
-  def main(): Unit = {
+object Main {
+  def main(args: Array[String]): Unit = {
 
     // Basic definitions + create the canvas
     val width = 600
