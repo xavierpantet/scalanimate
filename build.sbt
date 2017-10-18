@@ -5,6 +5,7 @@ enablePlugins(WorkbenchPlugin)
 
 // Project name + basic definitions
 name := "scalanimate"
+version := "1.0.0"
 scalaVersion := "2.12.2"
 
 // Dependencies to Scala.js dom
