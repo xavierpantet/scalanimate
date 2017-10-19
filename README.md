@@ -5,10 +5,12 @@ An educational tool intended for people who want to discover Scala in an interac
 # Example
 
 ~~~ scala
+// Create the canvas
 val width = 600
 val height = 600
 implicit val canvas = Canvas("canvas", width, height)
 
+// Create a few shapes
 val c1 = Rectangle(width / 2, height / 2, 100, 200)
 c1.fillColor = Color.red
 c1.onMouseDown = () => c1.hide()
@@ -20,6 +22,7 @@ c2.fillColor = Color.yellow
 val c3 = Circle(400, 0, 10)
 c3.fillColor = Color.orange
 
+// Update canvas every 20ms. This gives an impression of movement.
 every(20.milliseconds) { t => {
   c1.pointTowards(c2)
   c3.moveTo(400*Math.cos(Angle(t.toDouble/50).toRadians), 400*Math.sin(Angle(t.toDouble/50).toRadians))
