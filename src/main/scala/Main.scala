@@ -3,6 +3,7 @@ import doodle.core.{Angle, Color}
 import scala.concurrent.duration._
 import scalanimate.Canvas
 import scalanimate.shapes.mutable.{Circle, Image, Oval, Polygon, Rectangle}
+import scalanimate.shapes.mutable.Image._
 import scalanimate.core.TimeControls._
 
 
@@ -13,7 +14,7 @@ object Main {
     val height = 600
     implicit val canvas = Canvas("canvas", width, height)
 
-    val c1 = Image(Image.Pindex, width / 2, height / 2)
+    val c1 = Image(Pindex, width / 2, height / 2)
     val c2 = Circle(width / 2, height / 2, 10)
     c2.fillColor = Color.yellow
 
