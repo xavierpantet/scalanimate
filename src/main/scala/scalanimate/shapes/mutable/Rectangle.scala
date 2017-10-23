@@ -87,7 +87,3 @@ case class Rectangle(override var x: Double, override var y: Double, var width: 
   }
 
 }
-
-object Rectangle {
-  def apply(x: Double, y: Double, width: Double, height: Double)(implicit canvas: Canvas) = new Rectangle(x, y, width, height)
-}

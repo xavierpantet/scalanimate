@@ -33,7 +33,3 @@ case class Circle(override var x: Double, override var y: Double, var r: Double)
     canvas.context.stroke()
   }
 }
-
-object Circle {
-  def apply(x: Double, y: Double, r: Double)(implicit canvas: Canvas) = new Circle(x, y, r)
-}
