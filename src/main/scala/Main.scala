@@ -1,6 +1,5 @@
 import doodle.core.Color
 
-import scala.concurrent.duration._
 import scalanimate.Canvas
 import scalanimate.shapes.mutable.{Circle, Image}
 import scalanimate.shapes.mutable.Image._
