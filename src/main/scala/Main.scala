@@ -1,8 +1,8 @@
-import doodle.core.{Angle, Color}
+import doodle.core.Color
 
 import scala.concurrent.duration._
 import scalanimate.Canvas
-import scalanimate.shapes.mutable.{Circle, Image, Oval, Polygon, Rectangle}
+import scalanimate.shapes.mutable.{Circle, Image}
 import scalanimate.shapes.mutable.Image._
 import scalanimate.core.TimeControls._
 
