@@ -1,5 +1,7 @@
 package scalanimate.core
 
+import scala.concurrent.duration._
+
 import scalanimate.animation.Animation
 import scala.concurrent.duration.Duration
 import scalajs.js.timers._
@@ -19,7 +21,7 @@ object TimeControls {
     */
   def ready(f: => Unit)(implicit canvas: Canvas): Unit = {
     f
-    canvas.update
+    every(20.milliseconds){_ => canvas.update}
   }
 
   /**

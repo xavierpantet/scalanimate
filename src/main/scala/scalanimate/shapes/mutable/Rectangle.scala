@@ -37,7 +37,7 @@ case class Rectangle(override var x: Double, override var y: Double, var width: 
   private def topRightCorner = (topLeftCorner._1 + xRotationTransform._1, topLeftCorner._2 + xRotationTransform._2)
 
   /**
-    * Defined the path to draw the rectangle onto the canvas
+    * Defines the path to draw the rectangle onto the canvas
     * without actually printing it
     */
   private def getPath = {
