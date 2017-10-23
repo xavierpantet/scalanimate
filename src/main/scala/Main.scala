@@ -14,13 +14,12 @@ object Main {
     val height = 600
     implicit val canvas = Canvas("canvas", width, height)
 
-    val c1 = Image(Pindex, width / 2, height / 2)
-    val c2 = Circle(width / 2, height / 2, 10)
-    c2.fillColor = Color.yellow
-
-    every(20.milliseconds) { _ => {
+    ready {
+      val c1 = Image(Pindex, width / 2, height / 2)
+      val c2 = Circle(width / 2, height / 2, 10)
+      c2.fillColor = Color.yellow
       c1.onMouseDown = () => c1.hide()
       c1.onMouseUp = () => c1.show()
-    }}
+    }
   }
 }
