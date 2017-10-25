@@ -8,6 +8,16 @@ import org.scalajs.dom.raw.HTMLImageElement
 
 case class Image(imageURL: String, override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
   /**
+    * Is the image flipped vertically?
+    */
+  private var xFlipped = false
+
+  /**
+    * Is the image flipped horizontally?
+    */
+  private var yFlipped = false
+
+  /**
     * Contains the actual HTML element to store the image
     */
   private lazy val image: HTMLImageElement = {
@@ -85,13 +95,14 @@ case class Image(imageURL: String, override var x: Double, override var y: Doubl
     * @param canvas the canvas to draw on
     */
   override def draw(implicit canvas: Canvas): Unit = {
-    if (showing) {
-      canvas.context.translate(x, y)
-      canvas.context.rotate(angle.toRadians)
-      canvas.context.drawImage(image, 0, 0, width, height)
-      canvas.context.rotate(-angle.toRadians)
-      canvas.context.translate(-x, -y)
-    }
+    val (xCoef, xTranslate): (Double, Double) = if(xFlipped) (-1, width) else (1, 0)
+    val (yCoef, yTranslate): (Double, Double) = if(yFlipped) (-1, height) else (1, 0)
+
+    canvas.context.translate(x, y)
+    canvas.context.rotate(angle.toRadians)
+    canvas.context.scale(xCoef, yCoef)
+    canvas.context.drawImage(image, -xTranslate, -yTranslate, width, height)
+    canvas.context.setTransform(1, 0, 0, 1, 0, 0)
   }
 
   /**
@@ -104,6 +115,16 @@ case class Image(imageURL: String, override var x: Double, override var y: Doubl
     getPath
     canvas.context.isPointInPath(x, y)
   }
+
+  /**
+    * Flips the image vertically
+    */
+  def flipVertically = xFlipped = !xFlipped
+
+  /**
+    * Flips the image horizontally
+    */
+  def flipHorizontally = yFlipped = !yFlipped
 }
 
 object Image{

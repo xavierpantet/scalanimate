@@ -1,5 +1,4 @@
-import doodle.core.Color
-
+import scala.concurrent.duration._
 import scalanimate.Canvas
 import scalanimate.shapes.mutable.{Circle, Image}
 import scalanimate.core.TimeControls._
@@ -12,13 +11,17 @@ object Main {
     val height = 600
     implicit val canvas = Canvas("canvas", width, height)
 
-    ready {
-      val c1 = Image(Image.Girl, 200, 150, 100, 100)
-      val c2 = Circle(200, 150, 10)
-      c1.onMouseDown = () => c1.hide()
-      c1.onMouseUp = () => c1.show()
-      c1.turnRight(20)
-      c2.fillColor = Color.yellow
-    }
+    val c1 = Image(Image.Girl, 200, 150, 100, 100)
+    c1.turnRight(10)
+    c1.onMouseDown = () => c1.hide()
+    c1.onMouseUp = () => c1.show()
+    canvas.update
+
+    every(1.second){ t => {
+      if(t % 2 == 0)
+        c1.flipVertically
+      else
+        c1.flipHorizontally
+    }}
   }
 }
