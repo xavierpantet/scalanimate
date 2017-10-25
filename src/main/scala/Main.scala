@@ -13,7 +13,7 @@ object Main {
     implicit val canvas = Canvas("canvas", width, height)
 
     ready {
-      val c1 = Image(Image.Girl, 200, 150, 100, 50)
+      val c1 = Image(Image.Girl, 200, 150, 100, 100)
       val c2 = Circle(200, 150, 10)
       c1.onMouseDown = () => c1.hide()
       c1.onMouseUp = () => c1.show()
