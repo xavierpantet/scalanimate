@@ -14,11 +14,12 @@ object Main {
     implicit val canvas = Canvas("canvas", width, height)
 
     ready {
-      val c1 = Image(Pindex, width / 2, height / 2)
-      val c2 = Circle(width / 2, height / 2, 10)
-      c2.fillColor = Color.yellow
+      val c1 = Image(Pindex, 200, 150, 100, 50)
+      val c2 = Circle(200, 150, 10)
       c1.onMouseDown = () => c1.hide()
       c1.onMouseUp = () => c1.show()
+      c1.turnRight(20)
+      c2.fillColor = Color.yellow
     }
   }
 }
