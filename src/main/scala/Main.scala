@@ -1,6 +1,9 @@
+import doodle.core.Angle
+
 import scala.concurrent.duration._
+import scala.util.Random
 import scalanimate.Canvas
-import scalanimate.shapes.mutable.{Circle, Image}
+import scalanimate.shapes.mutable.Circle
 import scalanimate.core.TimeControls._
 
 
@@ -11,17 +14,11 @@ object Main {
     val height = 600
     implicit val canvas = Canvas("canvas", width, height)
 
-    val c1 = Image(Image.Girl, 200, 150, 100, 100)
-    c1.turnRight(10)
-    c1.onMouseDown = () => c1.hide()
-    c1.onMouseUp = () => c1.show()
-    canvas.update
-
-    every(1.second){ t => {
-      if(t % 2 == 0)
-        c1.flipVertically
-      else
-        c1.flipHorizontally
+    every(20.milliseconds){ _ => {
+      val c = Circle(width/2, height/2, 10)
+      c.angle = Angle.degrees(Random.nextInt(360))
+      canvas.shapes.foreach(_.move(5))
     }}
+
   }
 }
