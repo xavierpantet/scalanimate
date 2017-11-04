@@ -146,9 +146,9 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
 
     for{
       p <- other.getNormalEdgesVectors
-      c <- getVectorsFromCenterToEveryCorner
+      c <- other.getVectorsFromCenterToEveryCorner
     } yield p.projectedOn(c))
 
-    p1 ::: p2 forall(_.norm < centerToCenter.norm)
+    !(p1 ::: p2 forall(_.norm < centerToCenter.norm))
   }
 }

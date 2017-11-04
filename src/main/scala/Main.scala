@@ -16,7 +16,6 @@ object Main {
 
     val p = Polygon(width/2, height/2, 100, 7)
     val c = Rectangle(width/2, height/2, 10, 10)
-    c.fillColor = Color.green
 
     every(20.milliseconds){ _ => {
       c.x = canvas.mouseX
