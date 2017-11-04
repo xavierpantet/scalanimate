@@ -139,16 +139,11 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
   def touches(other: MutableShape): Boolean = {
     val centerToCenter = Vector2D.fromPoints(center, other.center)
 
-    val (p1, p2) = (for{
-      p <- getNormalEdgesVectors
-      c <- getVectorsFromCenterToEveryCorner
-    } yield p.projectedOn(c),
+    val projections = for{
+      p <- getNormalEdgesVectors ::: other.getNormalEdgesVectors
+      c <- getVectorsFromCenterToEveryCorner ::: other.getVectorsFromCenterToEveryCorner
+    } yield p.projectedOn(c)
 
-    for{
-      p <- other.getNormalEdgesVectors
-      c <- other.getVectorsFromCenterToEveryCorner
-    } yield p.projectedOn(c))
-
-    !(p1 ::: p2 forall(_.norm < centerToCenter.norm))
+    !(projections forall(_.norm < centerToCenter.norm))
   }
 }
