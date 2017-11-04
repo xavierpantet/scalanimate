@@ -39,4 +39,10 @@ case class Circle(override var x: Double, override var y: Double, var r: Double)
     * @return a list of normal vectors
     */
   override def getNormalEdgesVectors = Nil
+
+  /**
+    * Returns a list containing vectors from the center of the shape to each one of its corners
+    * @return a list of center-corner vectors for every corner
+    */
+  override def getVectorsFromCenterToEveryCorner = Nil
 }

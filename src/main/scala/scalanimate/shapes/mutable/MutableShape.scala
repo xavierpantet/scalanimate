@@ -4,7 +4,7 @@ import doodle.core.{Angle, Color}
 
 import scalanimate.Canvas
 import scalanimate.core.GeometryHelper._
-import scalanimate.core.Vector2D
+import scalanimate.core.{GeometryHelper, Vector2D}
 import scalanimate.shapes.Shape
 
 /**
@@ -124,4 +124,31 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * @return a list of normal vectors
     */
   def getNormalEdgesVectors: List[Vector2D]
+
+  /**
+    * Returns a list containing vectors from the center of the shape to each one of its corners
+    * @return a list of center-corner vectors for every corner
+    */
+  def getVectorsFromCenterToEveryCorner: List[Vector2D]
+
+  /**
+    * Decides whether two shapes touch each other or not (core of SAT algorithm)
+    * @param other another shape
+    * @return true if the two shapes touch each other, false otherwise
+    */
+  def touches(other: MutableShape): Boolean = {
+    val centerToCenter = Vector2D.fromPoints(center, other.center)
+
+    val (p1, p2) = (for{
+      p <- getNormalEdgesVectors
+      c <- getVectorsFromCenterToEveryCorner
+    } yield p.projectedOn(c),
+
+    for{
+      p <- other.getNormalEdgesVectors
+      c <- getVectorsFromCenterToEveryCorner
+    } yield p.projectedOn(c))
+
+    p1 ::: p2 forall(_.norm < centerToCenter.norm)
+  }
 }

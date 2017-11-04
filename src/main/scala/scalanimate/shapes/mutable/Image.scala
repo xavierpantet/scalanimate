@@ -138,6 +138,17 @@ case class Image(imageURL: String, override var x: Double, override var y: Doubl
     Vector2D.fromPoints((x, y), bottomRightCorner),
     Vector2D.fromPoints(topRightCorner, topLeftCorner),
     Vector2D.fromPoints(topRightCorner, bottomRightCorner)).map(_.normal)
+
+  /**
+    * Returns a list containing vectors from the center of the shape to each one of its corners
+    * @return a list of center-corner vectors for every corner
+    */
+  override def getVectorsFromCenterToEveryCorner = List(
+    Vector2D.fromPoints(center, (x, y)),
+    Vector2D.fromPoints(center, topLeftCorner),
+    Vector2D.fromPoints(center, topRightCorner),
+    Vector2D.fromPoints(center, bottomRightCorner)
+  )
 }
 
 object Image{

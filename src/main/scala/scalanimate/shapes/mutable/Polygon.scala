@@ -70,4 +70,10 @@ case class Polygon(override var x: Double, override var y: Double, var r: Double
     val size = l.size
     l.drop(i % size) ++ l.take(i % size)
   }
+
+  /**
+    * Returns a list containing vectors from the center of the shape to each one of its corners
+    * @return a list of center-corner vectors for every corner
+    */
+  override def getVectorsFromCenterToEveryCorner = (0 to n).map(_*centerAngle + angle.toRadians).map(angle => Vector2D.fromPoints(center, (x + r*Math.cos(angle), y + r*Math.sin(angle)))).toList
 }

@@ -82,7 +82,7 @@ class Vector2D(val x: Double, val y: Double) {
     * @param other another vector
     * @return the projection of the two vectors
     */
-  def projectsOn(other: Vector2D): Vector2D = other.normalize multipliedBy scalarProjection(other)
+  def projectedOn(other: Vector2D): Vector2D = other.normalize multipliedBy scalarProjection(other)
 
   override def toString: String = "(" + x + ", " + y + ")"
 }
