@@ -144,7 +144,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
       c <- getVectorsFromCenterToEveryCorner ::: other.getVectorsFromCenterToEveryCorner
     } yield c.projectedOn(p)
 
-    !(projections forall(_.norm < centerToCenter.norm))
+    projections exists(_.norm >= centerToCenter.norm)
   }
 
   /**
@@ -153,17 +153,17 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     */
   def touchesEdge: Boolean = {
     val vectorsAndEdges = List(
-      (Vector2D(0, 1), y),
-      (Vector2D(1, 0), x),
-      (Vector2D(0, -1), canvas.height - y),
-      (Vector2D(-1, 0), canvas.width - x)
+      (Vector2D(0, 1), canvas.height - center._2),
+      (Vector2D(1, 0), canvas.width - center._1),
+      (Vector2D(0, -1), center._2),
+      (Vector2D(-1, 0), center._1)
     )
 
     val projections = for{
       p <- vectorsAndEdges
       c <- getVectorsFromCenterToEveryCorner
-    } yield c.projectedOn(p._1).norm < p._2
+    } yield c.projectedOn(p._1).norm >= p._2
 
-    !(projections contains false)
+    projections contains true
   }
 }
