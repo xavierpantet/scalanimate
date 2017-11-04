@@ -2,6 +2,7 @@ package scalanimate.shapes.mutable
 
 import scalanimate.core.GeometryHelper
 import scalanimate.Canvas
+import scalanimate.core.GeometryHelper.Point
 
 case class Circle(override var x: Double, override var y: Double, var r: Double)(implicit override val canvas: Canvas) extends MutableShape {
 
@@ -10,7 +11,7 @@ case class Circle(override var x: Double, override var y: Double, var r: Double)
     *
     * @return the position of the center of the shape
     */
-  override def center: (Double, Double) = (x, y)
+  override def center: Point = (x, y)
 
   /**
     * Returns true iff the point (x, y) belongs to the shape
@@ -32,4 +33,10 @@ case class Circle(override var x: Double, override var y: Double, var r: Double)
     canvas.context.strokeStyle = borderColor.toCanvas
     canvas.context.stroke()
   }
+
+  /**
+    * Returns a list containing a normal vector for each edge of the shape
+    * @return a list of normal vectors
+    */
+  override def getNormalEdgesVectors = Nil
 }

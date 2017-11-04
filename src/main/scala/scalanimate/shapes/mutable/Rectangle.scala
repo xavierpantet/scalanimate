@@ -3,6 +3,8 @@ package scalanimate.shapes.mutable
 import doodle.core.Angle
 
 import scalanimate.Canvas
+import scalanimate.core.GeometryHelper.Point
+import scalanimate.core.Vector2D
 
 case class Rectangle(override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
 
@@ -62,7 +64,7 @@ case class Rectangle(override var x: Double, override var y: Double, var width: 
     * Returns the position of the center of the shape
     * @return the position of the center of the shape
     */
-  override def center: (Double, Double) = (x + width/2, y + height/2)
+  override def center: Point = (x + width/2, y + height/2)
 
   /**
     * Actually draws the shape on the canvas
@@ -86,4 +88,13 @@ case class Rectangle(override var x: Double, override var y: Double, var width: 
     canvas.context.isPointInPath(x, y)
   }
 
+  /**
+    * Returns a list containing a normal vector for each edge of the shape
+    * @return a list of normal vectors
+    */
+  override def getNormalEdgesVectors = List(
+    Vector2D.fromPoints((x, y), topLeftCorner),
+    Vector2D.fromPoints((x, y), bottomRightCorner),
+    Vector2D.fromPoints(topRightCorner, topLeftCorner),
+    Vector2D.fromPoints(topRightCorner, bottomRightCorner)).map(_.normal)
 }

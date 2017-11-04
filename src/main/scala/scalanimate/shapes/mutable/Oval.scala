@@ -1,5 +1,6 @@
 package scalanimate.shapes.mutable
 import scalanimate.Canvas
+import scalanimate.core.GeometryHelper.Point
 
 case class Oval(override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
   /**
@@ -20,7 +21,7 @@ case class Oval(override var x: Double, override var y: Double, var width: Doubl
     *
     * @return the position of the center of the shape
     */
-  override def center: (Double, Double) = (x, y)
+  override def center: Point = (x, y)
 
   /**
     * Actually draws the shape on the canvas
@@ -45,4 +46,10 @@ case class Oval(override var x: Double, override var y: Double, var width: Doubl
     getPath
     canvas.context.isPointInPath(x, y)
   }
+
+  /**
+    * Returns a list containing a normal vector for each edge of the shape
+    * @return a list of normal vectors
+    */
+  override def getNormalEdgesVectors = Nil
 }

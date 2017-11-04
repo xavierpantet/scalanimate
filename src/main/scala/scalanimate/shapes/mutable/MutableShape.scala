@@ -1,8 +1,10 @@
 package scalanimate.shapes.mutable
 
 import doodle.core.{Angle, Color}
+
 import scalanimate.Canvas
 import scalanimate.core.GeometryHelper._
+import scalanimate.core.Vector2D
 import scalanimate.shapes.Shape
 
 /**
@@ -27,7 +29,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * Returns the position of the center of the shape
     * @return the position of the center of the shape
     */
-  def center: Position
+  def center: Point
 
   /**
     * Moves the shapes of a distance d in its own direction
@@ -116,4 +118,10 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * @param y the y coordinate of the point
     */
   def contains(x: Double, y: Double): Boolean
+
+  /**
+    * Returns a list containing a normal vector for each edge of the shape
+    * @return a list of normal vectors
+    */
+  def getNormalEdgesVectors: List[Vector2D]
 }

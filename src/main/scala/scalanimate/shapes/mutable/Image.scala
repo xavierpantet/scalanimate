@@ -6,6 +6,9 @@ import scalanimate.Canvas
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLImageElement
 
+import scalanimate.core.GeometryHelper.Point
+import scalanimate.core.Vector2D
+
 case class Image(imageURL: String, override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
   /**
     * Is the image flipped vertically?
@@ -87,7 +90,7 @@ case class Image(imageURL: String, override var x: Double, override var y: Doubl
     *
     * @return the position of the center of the shape
     */
-  override def center: (Double, Double) = (x + image.width / 2, y + image.height / 2)
+  override def center: Point = (x + image.width / 2, y + image.height / 2)
 
   /**
     * Actually draws the shape on the canvas
@@ -125,6 +128,16 @@ case class Image(imageURL: String, override var x: Double, override var y: Doubl
     * Flips the image horizontally
     */
   def flipHorizontally = yFlipped = !yFlipped
+
+  /**
+    * Returns a list containing a normal vector for each edge of the shape
+    * @return a list of normal vectors
+    */
+  override def getNormalEdgesVectors = List(
+    Vector2D.fromPoints((x, y), topLeftCorner),
+    Vector2D.fromPoints((x, y), bottomRightCorner),
+    Vector2D.fromPoints(topRightCorner, topLeftCorner),
+    Vector2D.fromPoints(topRightCorner, bottomRightCorner)).map(_.normal)
 }
 
 object Image{
