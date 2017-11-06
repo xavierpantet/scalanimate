@@ -71,18 +71,11 @@ class Vector2D(val x: Double, val y: Double) {
   def angleWith(other: Vector2D): Angle = Angle.radians((this dot other)/(norm * other.norm))
 
   /**
-    * Computes the scalar projection of two vectors
-    * @param other another vector
-    * @return scalar projection of two vectors
-    */
-  def scalarProjection(other: Vector2D): Double = norm * Math.cos(angleWith(other).toRadians)
-
-  /**
     * Computes the projection of a vector onto another
     * @param other another vector
     * @return the projection of the two vectors
     */
-  def projectedOn(other: Vector2D): Vector2D = other.normalize multipliedBy scalarProjection(other)
+  def projectedOn(other: Vector2D): Vector2D = other multipliedBy (this.dot(other) / (other.norm*other.norm))
 
   override def toString: String = "(" + x + ", " + y + ")"
 }

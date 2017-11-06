@@ -96,16 +96,16 @@ case class Rectangle(override var x: Double, override var y: Double, var width: 
     Vector2D.fromPoints((x, y), topLeftCorner),
     Vector2D.fromPoints((x, y), bottomRightCorner),
     Vector2D.fromPoints(topRightCorner, topLeftCorner),
-    Vector2D.fromPoints(topRightCorner, bottomRightCorner)).map(_.normal)
+    Vector2D.fromPoints(topRightCorner, bottomRightCorner)).map(_.normalize)
 
   /**
     * Returns a list containing vectors from the center of the shape to each one of its corners
     * @return a list of center-corner vectors for every corner
     */
   override def getVectorsFromCenterToEveryCorner = List(
-    Vector2D.fromPoints(center, (x, y)),
-    Vector2D.fromPoints(center, topLeftCorner),
-    Vector2D.fromPoints(center, topRightCorner),
-    Vector2D.fromPoints(center, bottomRightCorner)
+    Vector2D(x, y),
+    Vector2D(topLeftCorner._1, topLeftCorner._2),
+    Vector2D(topRightCorner._1, topRightCorner._2),
+    Vector2D(bottomRightCorner._1, bottomRightCorner._2)
   )
 }

@@ -137,14 +137,13 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * @return true if the two shapes touch each other, false otherwise
     */
   def touches(other: MutableShape): Boolean = {
-    val centerToCenter = Vector2D.fromPoints(center, other.center)
+    val axis = getNormalEdgesVectors ::: other.getNormalEdgesVectors
 
-    val projections = for{
-      p <- getNormalEdgesVectors ::: other.getNormalEdgesVectors
-      c <- getVectorsFromCenterToEveryCorner ::: other.getVectorsFromCenterToEveryCorner
-    } yield c.projectedOn(p)
+    val projections = axis.map(a => (
+      getVectorsFromCenterToEveryCorner.map(_.projectedOn(a).norm),
+      other.getVectorsFromCenterToEveryCorner.map(_.projectedOn(a).norm)))
 
-    projections exists(_.norm >= centerToCenter.norm)
+    projections.forall(norm => !(norm._2.min > norm._1.max || norm._2.max < norm._1.min))
   }
 
   /**
@@ -162,8 +161,9 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     val projections = for{
       p <- vectorsAndEdges
       c <- getVectorsFromCenterToEveryCorner
-    } yield c.projectedOn(p._1).norm >= p._2
+    } yield 1 //println("(" + c.projectedOn(p._1).norm + ", " +  p._2 + ")")
 
-    projections contains true
+    //projections contains true
+    true
   }
 }

@@ -14,7 +14,7 @@ object Main {
     val height = 600
     implicit val canvas = Canvas("canvas", width, height)
 
-    val p = Polygon(width/2, height/2, 100, 7)
+    val p = Polygon(width/2, height/2, 50, 5)
     val c = Rectangle(width/2, height/2, 10, 10)
 
     every(20.milliseconds){ _ => {
