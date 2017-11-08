@@ -56,7 +56,7 @@ case class Polygon(override var x: Double, override var y: Double, var r: Double
     * @return a list of normal vectors
     */
   override def getNormalEdgesVectors = {
-    val angles = (1 to n).map(_*centerAngle + angle.toRadians).map(angle => (x + r*Math.cos(angle), y + r*Math.sin(angle))).toList
+    val angles = (0 to n).map(_*centerAngle + angle.toRadians).map(angle => (x + r*Math.cos(angle), y + r*Math.sin(angle))).toList
     (angles zip rotateLeft(angles, 1)).map{ case (a1, a2) => Vector2D.fromPoints(a1, a2).normalize}
   }
 
