@@ -3,6 +3,8 @@ package scalanimate.core
 import doodle.core.Angle
 import org.scalatest.FunSuite
 
+import scalanimate.test.TestHelper.reasonablyEqual
+
 class Vector2DTest extends FunSuite {
   val vNull = Vector2D(0, 0)
   val vUnit = Vector2D(1, 0)
@@ -73,6 +75,4 @@ class Vector2DTest extends FunSuite {
     assert(v.projectedOn(v) == v)
     assert(reasonablyEqual(projection.x, test.x) && reasonablyEqual(projection.y, test.y))
   }
-
-  def reasonablyEqual(x: Double, y: Double) = Math.abs(x - y) < 0.000001
 }
