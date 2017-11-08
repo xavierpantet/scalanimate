@@ -58,26 +58,27 @@ class Vector2D(val x: Double, val y: Double) {
 
   /**
     * Negates a vector (ie changes its direction)
-    * @param v the vector
     * @return vector with opposite direction
     */
-  def unary_-(v: Vector2D): Vector2D = v multipliedBy (-1)
+  def unary_- : Vector2D = this multipliedBy (-1)
 
   /**
     * Computes the angle between two vectors
     * @param other another vector
     * @return angle between the two vectors
     */
-  def angleWith(other: Vector2D): Angle = Angle.radians((this dot other)/(norm * other.norm))
+  def angleWith(other: Vector2D): Angle = Angle.radians(Math.acos((this dot other)/(norm * other.norm)))
 
   /**
     * Computes the projection of a vector onto another
     * @param other another vector
     * @return the projection of the two vectors
     */
-  def projectedOn(other: Vector2D): Vector2D = other multipliedBy (this.dot(other) / (other.norm*other.norm))
+  def projectedOn(other: Vector2D): Vector2D = other multipliedBy (this dot other) / (other.norm * other.norm)
 
   override def toString: String = "(" + x + ", " + y + ")"
+
+  def ==(other: Vector2D) = x == other.x && y == other.y
 }
 
 object Vector2D{
