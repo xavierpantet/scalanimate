@@ -76,8 +76,14 @@ class Vector2D(val x: Double, val y: Double) {
     */
   def projectedOn(other: Vector2D): Vector2D = other multipliedBy (this dot other) / (other.norm * other.norm)
 
+  
   override def toString: String = "(" + x + ", " + y + ")"
 
+  /**
+    * Tests for equality between two vectors
+    * @param other another vector
+    * @return true iff the two vectors have the same components
+    */
   def ==(other: Vector2D) = x == other.x && y == other.y
 }
 
