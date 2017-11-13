@@ -44,5 +44,5 @@ case class Circle(override var x: Double, override var y: Double, var r: Double)
     * Returns a list containing vectors from the center of the shape to each one of its corners
     * @return a list of center-corner vectors for every corner
     */
-  override def getVectorsFromCenterToEveryCorner = Nil
+  override def getCornerVectors = Nil
 }

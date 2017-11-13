@@ -15,7 +15,7 @@ class RectangleTest extends FunSpec {
 
   describe("A rectangle"){
     it("Should return the correct edges vector when aligned"){
-      val testedVectors = aligned.getVectorsFromCenterToEveryCorner
+      val testedVectors = aligned.getCornerVectors
 
       assert(testedVectors.distinct.size == 4)
 

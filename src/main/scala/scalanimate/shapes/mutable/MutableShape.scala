@@ -129,7 +129,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * Returns a list containing vectors from the center of the shape to each one of its corners
     * @return a list of center-corner vectors for every corner
     */
-  def getVectorsFromCenterToEveryCorner: List[Vector2D]
+  def getCornerVectors: List[Vector2D]
 
   /**
     * Decides whether two shapes touch each other or not (core of SAT algorithm)
@@ -140,8 +140,8 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     val axis = getNormalEdgesVectors ::: other.getNormalEdgesVectors
 
     val projections = axis.map(a => (
-      getVectorsFromCenterToEveryCorner.map(_.projectedOn(a).norm),
-      other.getVectorsFromCenterToEveryCorner.map(_.projectedOn(a).norm)))
+      getCornerVectors.map(_.projectedOn(a).norm),
+      other.getCornerVectors.map(_.projectedOn(a).norm)))
 
     projections.forall(norm => !(norm._2.min > norm._1.max || norm._2.max < norm._1.min))
   }
@@ -160,7 +160,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
 
     val projections = for{
       p <- vectorsAndEdges
-      c <- getVectorsFromCenterToEveryCorner
+      c <- getCornerVectors
     } yield 1 //println("(" + c.projectedOn(p._1).norm + ", " +  p._2 + ")")
 
     //projections contains true

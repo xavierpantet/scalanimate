@@ -75,5 +75,5 @@ case class Polygon(override var x: Double, override var y: Double, var r: Double
     * Returns a list containing vectors from the center of the shape to each one of its corners
     * @return a list of center-corner vectors for every corner
     */
-  override def getVectorsFromCenterToEveryCorner = (0 to n).map(_*centerAngle + angle.toRadians).map(angle => Vector2D(x + r*Math.cos(angle), y + r*Math.sin(angle))).toList
+  override def getCornerVectors = (0 to n).map(_*centerAngle + angle.toRadians).map(angle => Vector2D(x + r*Math.cos(angle), y + r*Math.sin(angle))).toList
 }

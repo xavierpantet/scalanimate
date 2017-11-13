@@ -143,7 +143,7 @@ case class Image(imageURL: String, override var x: Double, override var y: Doubl
     * Returns a list containing vectors from the center of the shape to each one of its corners
     * @return a list of center-corner vectors for every corner
     */
-  override def getVectorsFromCenterToEveryCorner = List(
+  override def getCornerVectors = List(
     Vector2D(x, y),
     Vector2D(topLeftCorner._1, topLeftCorner._2),
     Vector2D(topRightCorner._1, topRightCorner._2),
