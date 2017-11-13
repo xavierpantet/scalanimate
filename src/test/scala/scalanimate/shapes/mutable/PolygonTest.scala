@@ -14,7 +14,7 @@ class PolygonTest extends MutableShapeTest {
       assert(testedVectors.distinct.size == 4)
 
       val expectedVectors = List(Vector2D(110, 100), Vector2D(100, 90), Vector2D(90, 100), Vector2D(110, 110))
-      assert(testedVectors.forall(v => expectedVectors.exists(_ == v)))
+      assert(testedVectors.forall(expectedVectors.contains(_)))
     }
   }
 

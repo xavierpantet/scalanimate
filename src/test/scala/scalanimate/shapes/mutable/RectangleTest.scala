@@ -11,10 +11,10 @@ class RectangleTest extends MutableShapeTest {
     it("Should return the correct edges vector when aligned"){
       val testedVectors = aligned.getCornerVectors
 
-      assert(testedVectors.distinct.size == 5)
+      assert(testedVectors.distinct.size == 4)
 
       val expectedVectors = List(Vector2D(100, 100), Vector2D(150, 100), Vector2D(100, 50), Vector2D(150, 50))
-      assert(testedVectors.forall(v => expectedVectors.exists(_ == v)))
+      assert(testedVectors.forall(expectedVectors.contains(_)))
     }
   }
 
@@ -24,7 +24,7 @@ class RectangleTest extends MutableShapeTest {
     assert(testedAxis.distinct.size == 4)
 
     val expectedAxis = List(Vector2D(0, 1), Vector2D(1, 0), Vector2D(0, -1), Vector2D(-1, 0))
-    assert(testedAxis.forall(v => expectedAxis.exists(_ == v)))
+    assert(testedAxis.forall(expectedAxis.contains(_)))
   }
 
   it("Should return the correct axis when rotated"){
@@ -33,6 +33,6 @@ class RectangleTest extends MutableShapeTest {
     assert(testedAxis.distinct.size == 4)
 
     val expectedAcxis = List(Vector2D(0.5, Math.sqrt(3)/2), Vector2D(0.5, Math.sqrt(3)/2).normal, Vector2D(-0.5, Math.sqrt(3)/2), Vector2D(-0.5, Math.sqrt(3)/2).normal)
-    assert(testedAxis.forall(v => testedAxis.exists(_ == v)))
+    assert(testedAxis.forall(testedAxis.contains(_)))
   }
 }
