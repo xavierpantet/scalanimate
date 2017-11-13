@@ -78,7 +78,7 @@ object Canvas{
   def apply(element: HTMLCanvasElement, width: Int, height: Int) = {
     element.width = width
     element.height = height
-    sensify(Canvas(element))
+    sensify(new Canvas(element))
   }
 
   /**
