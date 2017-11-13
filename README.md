@@ -2,7 +2,7 @@
 
 An educational tool intended for people who want to discover Scala in an interactive way!
 
-# Example
+## Example
 
 ~~~ scala
 // Create the canvas
@@ -38,4 +38,16 @@ every(20.milliseconds) { t => {
   }
 }
 }
+~~~
+
+## Running
+~~~ shell
+sbt
+fastOptJS
+~~~
+
+## Testing
+~~~ shell
+npm i
+sbt test
 ~~~
