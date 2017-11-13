@@ -66,7 +66,7 @@ object Canvas{
     * @param element the HTML element representing the canvas
     * @return a canvas object
     */
-  def apply(element: HTMLCanvasElement) = new Canvas(element)
+  def apply(element: HTMLCanvasElement) = sensify(new Canvas(element))
 
   /**
     * Creates a canvas from its direct HTML element and assigning it the given size
@@ -78,7 +78,7 @@ object Canvas{
   def apply(element: HTMLCanvasElement, width: Int, height: Int) = {
     element.width = width
     element.height = height
-    new Canvas(element)
+    sensify(Canvas(element))
   }
 
   /**
@@ -94,8 +94,15 @@ object Canvas{
     c.height = height
     c.width = width
 
-    val canvas = new Canvas(c)
+    sensify(new Canvas(c))
+  }
 
+  /**
+    * Make a canvas sensitive to possible human interactions
+    * @param canvas the canvas to be sensified
+    * @return updated canvas with possible human interactions
+    */
+  private def sensify(canvas: Canvas): Canvas = {
     // Keeps up to date the coordinates of the mouse (relatively to the canvas)
     canvas.element.onmousemove = { (e: MouseEvent) =>
       canvas.mouseX = e.clientX - canvas.element.getBoundingClientRect().left
@@ -116,6 +123,6 @@ object Canvas{
     canvas.element.onmouseup = _ => canvas.shapes.filter(_.contains(canvas.mouseX, canvas.mouseY)).foreach(_.onMouseUp.apply())
 
     // Returns the canvas
-    new Canvas(c)
+    canvas
   }
 }

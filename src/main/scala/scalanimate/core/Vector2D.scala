@@ -76,7 +76,7 @@ class Vector2D(val x: Double, val y: Double) {
     */
   def projectedOn(other: Vector2D): Vector2D = other multipliedBy (this dot other) / (other.norm * other.norm)
 
-  
+
   override def toString: String = "(" + x + ", " + y + ")"
 
   /**
