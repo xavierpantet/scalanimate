@@ -2,7 +2,7 @@ package scalanimate
 
 import org.scalajs.dom
 import org.scalajs.dom.html.{Canvas => JSCanvas}
-import org.scalajs.dom.raw.{KeyboardEvent, MouseEvent}
+import org.scalajs.dom.raw.{HTMLCanvasElement, KeyboardEvent, MouseEvent}
 import org.scalajs.dom.{CanvasRenderingContext2D, document}
 
 import scala.collection.mutable.ListBuffer
@@ -12,21 +12,24 @@ import scalanimate.shapes.mutable.MutableShape
   * The canvas class represents the drawing area of a web page.
   * It is uniquely identified by the provided id and has a width and a height.
   * Moreover, it uses internally a ListBuffer to store the list of the shapes to draw.
-  * @param id HTML id attribute to identify the canvas in the page
-  * @param width width of the drawing area
-  * @param height height of the drawing area
+  * @param element HTML element representing the canvas
   * @param shapes a list of shapes to by drawn into the canvas
   */
-class Canvas(val id: String, val width: Int, val height: Int, val shapes: ListBuffer[MutableShape] = ListBuffer.empty) {
-  /**
-    * This is the actual HTML element representing the canvas
-    */
-  val canvas: JSCanvas = getCanvas(id, width, height)
-
+class Canvas(val element: HTMLCanvasElement, val shapes: ListBuffer[MutableShape] = ListBuffer.empty) {
   /**
     * And here is the drawing context (in which we will actually draw)
     */
-  val context = canvas.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
+  lazy val context = element.getContext("2d").asInstanceOf[CanvasRenderingContext2D]
+
+  /**
+    * Returns the width of the element
+    */
+  val width = element.width
+
+  /**
+    * Returns the height of the element
+    */
+  val height = element.height
 
   /**
     * X-coordinate (respectively t0 the canvas) of the mouse
@@ -55,44 +58,64 @@ class Canvas(val id: String, val width: Int, val height: Int, val shapes: ListBu
     clear
     shapes.filter(_.showing).foreach(_.draw(this))
   }
+}
+
+object Canvas{
+  /**
+    * Creates a canvas from its direct HTML element
+    * @param element the HTML element representing the canvas
+    * @return a canvas object
+    */
+  def apply(element: HTMLCanvasElement) = new Canvas(element)
 
   /**
-    * Gets, configures and returns a canvas from its id and the given width and height
-    * @param id HTML id attribute to identify the canvas in the page
-    * @param width width of the drawing area
-    * @param height height of the drawing area
-    * @return a HTML canvas with the given id, width and height
+    * Creates a canvas from its direct HTML element and assigning it the given size
+    * @param element the HTML element representing the canvas
+    * @param width the desired width
+    * @param height the desired height
+    * @return a canvas object
     */
-  private def getCanvas(id: String, width: Int, height: Int): JSCanvas = {
+  def apply(element: HTMLCanvasElement, width: Int, height: Int) = {
+    element.width = width
+    element.height = height
+    new Canvas(element)
+  }
+
+  /**
+    * Creates a canvas from an existing HTML element id
+    * @param id the id of the element representing the canvas
+    * @param width the desired width
+    * @param height the desired height
+    * @return a canvas object
+    */
+  def apply(id: String, width: Int, height: Int): Canvas =  {
     // Get the canvas and sets its size
-    val canvas = document.getElementById(id).asInstanceOf[JSCanvas]
-    canvas.height = height
-    canvas.width = width
+    val c = document.getElementById(id).asInstanceOf[JSCanvas]
+    c.height = height
+    c.width = width
+
+    val canvas = new Canvas(c)
 
     // Keeps up to date the coordinates of the mouse (relatively to the canvas)
-    canvas.onmousemove = { (e: MouseEvent) =>
-      mouseX = e.clientX - canvas.getBoundingClientRect().left
-      mouseY = e.clientY - canvas.getBoundingClientRect().top
+    canvas.element.onmousemove = { (e: MouseEvent) =>
+      canvas.mouseX = e.clientX - canvas.element.getBoundingClientRect().left
+      canvas.mouseY = e.clientY - canvas.element.getBoundingClientRect().top
     }
 
     // Keep up to date the set of currently pressed keyboard keys
     dom.window.onkeydown = { (e: KeyboardEvent) =>
-      keysDown += e.key
+      canvas.keysDown += e.key
     }
 
     dom.window.onkeyup = {( e:KeyboardEvent) =>
-      keysDown -= e.key
+      canvas.keysDown -= e.key
     }
 
     // Redirects the onMouseDown, onMouseUp, onMouseOver events to the shapes
-    canvas.onmousedown = _ => shapes.filter(_.contains(mouseX, mouseY)).foreach(_.onMouseDown.apply())
-    canvas.onmouseup = _ => shapes.filter(_.contains(mouseX, mouseY)).foreach(_.onMouseUp.apply())
+    canvas.element.onmousedown = _ => canvas.shapes.filter(_.contains(canvas.mouseX, canvas.mouseY)).foreach(_.onMouseDown.apply())
+    canvas.element.onmouseup = _ => canvas.shapes.filter(_.contains(canvas.mouseX, canvas.mouseY)).foreach(_.onMouseUp.apply())
 
     // Returns the canvas
-    canvas
+    new Canvas(c)
   }
-}
-
-object Canvas{
-  def apply(id: String, width: Int, height: Int): Canvas = new Canvas(id, width, height)
 }
