@@ -23,3 +23,6 @@ libraryDependencies += "org.scalatest" %%% "scalatest" % "3.0.4" % "test"
 bintrayRepository := "scalanimate"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayPackageLabels := Seq("scalanimate", "scala", "animation")
+
+// Test envirommnent configuration
+jsEnv in Test := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv()
