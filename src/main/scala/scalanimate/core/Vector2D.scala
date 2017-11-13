@@ -85,6 +85,23 @@ class Vector2D(val x: Double, val y: Double) {
     * @return true iff the two vectors have the same components
     */
   def ==(other: Vector2D) = x == other.x && y == other.y
+
+  /**
+    * Tests for equality between two vectors
+    * @param other another vector
+    * @return true iff the two vectors have the same components
+    */
+  override def equals (other: Any) : Boolean = {
+    other match{
+      case that: Vector2D => this == that
+      case _ => false
+    }
+  }
+
+  /**
+    * @return A hash for the vector
+    */
+  override def hashCode: Int = norm.toInt
 }
 
 object Vector2D{
