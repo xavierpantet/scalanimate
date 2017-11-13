@@ -11,7 +11,7 @@ class RectangleTest extends MutableShapeTest {
     it("Should return the correct edges vector when aligned"){
       val testedVectors = aligned.getCornerVectors
 
-      assert(testedVectors.distinct.size == 4)
+      assert(testedVectors.distinct.size == 5)
 
       val expectedVectors = List(Vector2D(100, 100), Vector2D(150, 100), Vector2D(100, 50), Vector2D(150, 50))
       assert(testedVectors.forall(v => expectedVectors.exists(_ == v)))

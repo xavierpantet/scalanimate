@@ -11,7 +11,8 @@ case class Polygon(override var x: Double, override var y: Double, var r: Double
     */
   private def getPath = {
     canvas.context.beginPath
-    (0 to n).map(_*centerAngle + angle.toRadians).foreach(angle => canvas.context.lineTo(x + r*Math.cos(angle), y + r*Math.sin(angle)))
+    val points = getPoints
+    points.foreach(p => canvas.context.lineTo(p._1, p._1))
   }
 
   /**
@@ -56,7 +57,7 @@ case class Polygon(override var x: Double, override var y: Double, var r: Double
     * @return a list of normal vectors
     */
   override def getNormalEdgesVectors = {
-    val angles = (0 to n).map(_*centerAngle + angle.toRadians).map(angle => (x + r*Math.cos(angle), y + r*Math.sin(angle))).toList
+    val angles = getPoints
     (angles zip rotateLeft(angles, 1)).map{ case (a1, a2) => Vector2D.fromPoints(a1, a2).normalize}
   }
 
@@ -75,5 +76,10 @@ case class Polygon(override var x: Double, override var y: Double, var r: Double
     * Returns a list containing vectors from the center of the shape to each one of its corners
     * @return a list of center-corner vectors for every corner
     */
-  override def getCornerVectors = (0 to n).map(_*centerAngle + angle.toRadians).map(angle => Vector2D(x + r*Math.cos(angle), y + r*Math.sin(angle))).toList
+  override def getCornerVectors = getPoints.map{ case (x, y) => Vector2D(x, y)}
+
+  /**
+    * @return A list of all the points composing the desired polygon
+    */
+  private def getPoints = (0 to n).map(_*centerAngle + angle.toRadians).map(angle => (x + r*Math.cos(angle), y + r*Math.sin(angle))).toList
 }
