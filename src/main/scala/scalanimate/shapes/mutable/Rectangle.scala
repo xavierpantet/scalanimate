@@ -3,7 +3,7 @@ package scalanimate.shapes.mutable
 import doodle.core.Angle
 
 import scalanimate.Canvas
-import scalanimate.core.GeometryHelper.Point
+import scalanimate.core.Helper.Point
 import scalanimate.core.Vector2D
 
 case class Rectangle(override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {

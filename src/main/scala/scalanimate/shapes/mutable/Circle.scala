@@ -1,8 +1,8 @@
 package scalanimate.shapes.mutable
 
-import scalanimate.core.GeometryHelper
+import scalanimate.core.Helper
 import scalanimate.Canvas
-import scalanimate.core.GeometryHelper.Point
+import scalanimate.core.Helper.Point
 
 case class Circle(override var x: Double, override var y: Double, var r: Double)(implicit override val canvas: Canvas) extends MutableShape {
 
@@ -24,7 +24,7 @@ case class Circle(override var x: Double, override var y: Double, var r: Double)
     * @param x the x coordinate of the point
     * @param y the y coordinate of the point
     */
-  override def contains(x: Double, y: Double): Boolean = GeometryHelper.distanceBetween((this.x, this.y), (x, y)) <= r
+  override def contains(x: Double, y: Double): Boolean = Helper.distanceBetween((this.x, this.y), (x, y)) <= r
 
   /**
     * Actually draws the shape on the canvas

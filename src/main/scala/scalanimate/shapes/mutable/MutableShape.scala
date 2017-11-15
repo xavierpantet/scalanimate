@@ -3,8 +3,8 @@ package scalanimate.shapes.mutable
 import doodle.core.{Angle, Color}
 
 import scalanimate.Canvas
-import scalanimate.core.GeometryHelper._
-import scalanimate.core.{GeometryHelper, Vector2D}
+import scalanimate.core.Helper._
+import scalanimate.core.{Helper, Vector2D}
 import scalanimate.shapes.Shape
 
 /**

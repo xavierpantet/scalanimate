@@ -1,6 +1,7 @@
 package scalanimate.shapes.mutable
 import scalanimate.Canvas
-import scalanimate.core.GeometryHelper.Point
+import scalanimate.core.Helper.Point
+import scalanimate.core.{Helper, Vector2D}
 
 case class Oval(override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
   /**
@@ -9,11 +10,7 @@ case class Oval(override var x: Double, override var y: Double, var width: Doubl
     */
   private def getPath = {
     canvas.context.beginPath
-    val steps = 50
-    val centerAngle = 2*Math.PI / steps
-
-    // Found here: https://math.stackexchange.com/questions/426150/what-is-the-general-equation-of-the-ellipse-that-is-not-in-the-origin-and-rotate/434482
-    (0 to steps).map(_*centerAngle).foreach(t => canvas.context.lineTo(x + width*Math.cos(t)*Math.cos(angle.toRadians) - height*Math.sin(t)*Math.sin(angle.toRadians), y + width*Math.cos(t)*Math.sin(angle.toRadians) + height*Math.sin(t)*Math.cos(angle.toRadians)))
+    getPoints(steps = 50).foreach(p => canvas.context.lineTo(p._1, p._2))
   }
 
   /**
@@ -51,11 +48,25 @@ case class Oval(override var x: Double, override var y: Double, var width: Doubl
     * Returns a list containing a normal vector for each edge of the shape
     * @return a list of normal vectors
     */
-  override def getNormalEdgesVectors = Nil
+  override def getNormalEdgesVectors = {
+    val points = getPoints(steps = 30).dropRight(1)
+    (points zip Helper.rotateLeft(points, 1)).map{ case (a1, a2) => Vector2D.fromPoints(a1, a2).normalize}
+  }
 
   /**
     * Returns a list containing vectors from the center of the shape to each one of its corners
     * @return a list of center-corner vectors for every corner
     */
-  override def getCornerVectors = Nil
+  override def getCornerVectors = getPoints(steps = 30).map{ case (x, y) => Vector2D(x, y)}
+
+  /**
+    * Computes the points that will allow us to create the oval
+    * Found here: https://math.stackexchange.com/questions/426150/what-is-the-general-equation-of-the-ellipse-that-is-not-in-the-origin-and-rotate/434482
+    * @param steps the number of steps we want (big -> precise but heavy computational time)
+    * @return the points that represent the oval
+    */
+  private def getPoints(steps: Int) = {
+    val centerAngle = 2*Math.PI / steps
+    (0 to steps).map(_*centerAngle).map(t => (x + width*Math.cos(t)*Math.cos(angle.toRadians) - height*Math.sin(t)*Math.sin(angle.toRadians), y + width*Math.cos(t)*Math.sin(angle.toRadians) + height*Math.sin(t)*Math.cos(angle.toRadians))).toList
+  }
 }

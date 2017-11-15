@@ -1,8 +1,8 @@
 package scalanimate.shapes.mutable
 
 import scalanimate.Canvas
-import scalanimate.core.GeometryHelper.Point
-import scalanimate.core.Vector2D
+import scalanimate.core.Helper.Point
+import scalanimate.core.{Helper, Vector2D}
 
 case class Polygon(override var x: Double, override var y: Double, var r: Double, var n: Int)(implicit override val canvas: Canvas) extends MutableShape {
   /**
@@ -58,18 +58,7 @@ case class Polygon(override var x: Double, override var y: Double, var r: Double
     */
   override def getNormalEdgesVectors = {
     val angles = getPoints.dropRight(1)
-    (angles zip rotateLeft(angles, 1)).map{ case (a1, a2) => Vector2D.fromPoints(a1, a2).normalize}
-  }
-
-  /**
-    * Rotates a list to the left by the given number of iterations
-    * @param l the list to be rotated
-    * @param i the number of iterations
-    * @return the list rotated by i iteration to the left
-    */
-  private def rotateLeft[A](l: List[A], i: Int): List[A] = {
-    val size = l.size
-    l.drop(i % size) ++ l.take(i % size)
+    (angles zip Helper.rotateLeft(angles, 1)).map{ case (a1, a2) => Vector2D.fromPoints(a1, a2).normalize}
   }
 
   /**

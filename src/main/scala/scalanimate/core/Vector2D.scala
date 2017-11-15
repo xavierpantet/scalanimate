@@ -2,7 +2,7 @@ package scalanimate.core
 
 import doodle.core.Angle
 
-import scalanimate.core.GeometryHelper.Point
+import scalanimate.core.Helper.Point
 
 /**
   * This provides a representation for vectors in a 2-dimensional vector space
