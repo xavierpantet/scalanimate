@@ -17,6 +17,13 @@ class Vector2D(val x: Double, val y: Double) {
   def norm: Double = Math.sqrt(x*x + y*y)
 
   /**
+    * Computes the norm of the vectors.
+    * Note that it will be negative if x or y is negative
+    * @return
+    */
+  def signedNorm: Double = if(x > 0 || y > 0) norm else -norm
+
+  /**
     * Normalizes a vector (= make its length be 1)
     * @return normalized vector
     */
@@ -75,6 +82,11 @@ class Vector2D(val x: Double, val y: Double) {
     * @return the projection of the two vectors
     */
   def projectedOn(other: Vector2D): Vector2D = other multipliedBy (this dot other) / (other.norm * other.norm)
+
+  /**
+    * @return true iff x > 0 and y > 0
+    */
+  def striclyPositive = x > 0 && y > 0
 
 
   override def toString: String = "(" + x + ", " + y + ")"
