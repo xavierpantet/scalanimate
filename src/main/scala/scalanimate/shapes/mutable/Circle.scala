@@ -7,6 +7,11 @@ import scalanimate.core.GeometryHelper.Point
 case class Circle(override var x: Double, override var y: Double, var r: Double)(implicit override val canvas: Canvas) extends MutableShape {
 
   /**
+    * A polygon that will help for collision detection (approximation)
+    */
+  private lazy val representativePolygon = Polygon(x, y, r, 30)
+
+  /**
     * Returns the position of the center of the shape
     *
     * @return the position of the center of the shape
@@ -38,11 +43,11 @@ case class Circle(override var x: Double, override var y: Double, var r: Double)
     * Returns a list containing a normal vector for each edge of the shape
     * @return a list of normal vectors
     */
-  override def getNormalEdgesVectors = Nil
+  override def getNormalEdgesVectors = representativePolygon.getNormalEdgesVectors
 
   /**
     * Returns a list containing vectors from the center of the shape to each one of its corners
     * @return a list of center-corner vectors for every corner
     */
-  override def getCornerVectors = Nil
+  override def getCornerVectors = representativePolygon.getCornerVectors
 }
