@@ -20,7 +20,7 @@ class Vector2D(val x: Double, val y: Double) {
     * Normalizes a vector (= make its length be 1)
     * @return normalized vector
     */
-  def normalize: Vector2D = Vector2D(x/norm, y/norm)
+  def normalize: Vector2D = if(norm != 0) Vector2D(x/norm, y/norm) else Vector2D(0, 0)
 
   /**
     * Computes a normal (= perpendicular) vector
