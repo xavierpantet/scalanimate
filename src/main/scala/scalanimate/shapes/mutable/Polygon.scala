@@ -12,7 +12,7 @@ case class Polygon(override var x: Double, override var y: Double, var r: Double
   private def getPath = {
     canvas.context.beginPath
     val points = getPoints
-    points.foreach(p => canvas.context.lineTo(p._1, p._1))
+    points.foreach(p => canvas.context.lineTo(p._1, p._2))
   }
 
   /**
