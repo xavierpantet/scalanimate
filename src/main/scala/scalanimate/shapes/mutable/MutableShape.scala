@@ -151,19 +151,14 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * @return true if the shapes touches an edge of the canvas, false otherwise
     */
   def touchesEdge: Boolean = {
-    val vectorsAndEdges = List(
-      (Vector2D(0, 1), canvas.height - center._2),
-      (Vector2D(1, 0), canvas.width - center._1),
-      (Vector2D(0, -1), center._2),
-      (Vector2D(-1, 0), center._1)
-    )
+    val axis = List((Vector2D(0, 1), canvas.height), (Vector2D(1, 0), canvas.width), (Vector2D(0, -1), 0), (Vector2D(-1, 0), 0))
 
     val projections = for{
-      p <- vectorsAndEdges
-      c <- getCornerVectors
-    } yield 1 //println("(" + c.projectedOn(p._1).norm + ", " +  p._2 + ")")
+      a <- axis
+    } yield((getCornerVectors.map(_.projectedOn(a._1).signedNorm),a._2))
 
-    //projections contains true
-    true
+    projections.exists(v => {
+      (v._1.max >= v._2 && v._1.min <= v._2)
+    })
   }
 }
