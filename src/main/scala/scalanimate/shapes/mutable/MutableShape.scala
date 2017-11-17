@@ -36,7 +36,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     *
     * @param d the distance to move the shape
     */
-  def move(d: Double): Unit = {
+  final def move(d: Double): Unit = {
     val radAngle = angle.toRadians
     x += d*Math.cos(radAngle)
     y += d*Math.sin(radAngle)
@@ -48,7 +48,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * @param dx the distance along the x axis
     * @param dy the distance along the y axis
     */
-  def move(dx: Double, dy: Double): Unit = {
+  final def move(dx: Double, dy: Double): Unit = {
     x += dx
     y += dy
   }
@@ -59,7 +59,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * @param x the x coordinate of the new position
     * @param y the y coordinate of the new position
     */
-  def moveTo(x: Double, y: Double): Unit = {
+  final def moveTo(x: Double, y: Double): Unit = {
     this.x = x
     this.y = y
   }
@@ -68,43 +68,43 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * Rotates the shape to the left of the given angle (in degrees)
     * @param angle the angle (in degrees)
     */
-  def turnLeft(angle: Double): Unit = this.angle = this.angle - Angle.degrees(angle)
+  final def turnLeft(angle: Double): Unit = this.angle = this.angle - Angle.degrees(angle)
 
   /**
     * Rotates the shape to the right of the given angle (in degrees)
     * @param angle the angle (in degrees)
     */
-  def turnRight(angle: Double): Unit = this.angle = this.angle + Angle.degrees(angle)
+  final def turnRight(angle: Double): Unit = this.angle = this.angle + Angle.degrees(angle)
 
   /**
     * Rotates the shape so that it points towards the given point
     * @param x the x coordinate of the point to be pointed
     * @param y the y coordinate of the point to be pointed
     */
-  def pointTowards(x: Double, y: Double): Unit = angle = Angle.radians(Math.atan2(y, x))
+  final def pointTowards(x: Double, y: Double): Unit = angle = Angle.radians(Math.atan2(y, x))
 
   /**
     * Rotates the shape so that it points towards another given shape
     * @param other the shape to be pointed
     */
-  def pointTowards(other: MutableShape): Unit = pointTowards(other.center._1, other.center._2)
+  final def pointTowards(other: MutableShape): Unit = pointTowards(other.center._1, other.center._2)
 
   /**
     * Calculates the distance between the center of two shapes
     *
     * @param other the shape we want to calculate the distance to
     */
-  def distanceTo(other: MutableShape): Unit = distanceBetween((x, y), other.center)
+  final def distanceTo(other: MutableShape): Unit = distanceBetween((x, y), other.center)
 
   /**
     * Shows the shape on the screen
     */
-  def show() = showing = true
+  final def show() = showing = true
 
   /**
     * Hide the shape from the screen
     */
-  def hide() = showing = false
+  final def hide() = showing = false
 
   /**
     * Actually draws the shape on the canvas
@@ -136,7 +136,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * @param other another shape
     * @return true if the two shapes touch each other, false otherwise
     */
-  def touches(other: MutableShape): Boolean = {
+  final def touches(other: MutableShape): Boolean = {
     val axis = getNormalEdgesVectors ::: other.getNormalEdgesVectors
 
     val projections = axis.map(a => (
@@ -150,7 +150,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * Decides whether the shape touches an edge of the canvas or not (inspired from SAT algorithm)
     * @return true if the shapes touches an edge of the canvas, false otherwise
     */
-  def touchesEdge: Boolean = {
+  final def touchesEdge: Boolean = {
     val axis = List((Vector2D(0, 1), canvas.height), (Vector2D(1, 0), canvas.width), (Vector2D(0, -1), 0), (Vector2D(-1, 0), 0))
 
     val projections = for{
