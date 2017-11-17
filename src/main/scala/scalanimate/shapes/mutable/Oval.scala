@@ -3,7 +3,7 @@ import scalanimate.Canvas
 import scalanimate.core.Helper.Point
 import scalanimate.core.{Helper, Vector2D}
 
-case class Oval(override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
+final case class Oval(override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
   /**
     * Defines the path to draw the oval onto the canvas
     * without actually printing it

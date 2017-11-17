@@ -4,7 +4,7 @@ import scalanimate.Canvas
 import scalanimate.core.Helper.Point
 import scalanimate.core.{Helper, Vector2D}
 
-case class Polygon(override var x: Double, override var y: Double, var r: Double, var n: Int)(implicit override val canvas: Canvas) extends MutableShape {
+final case class Polygon(override var x: Double, override var y: Double, var r: Double, var n: Int)(implicit override val canvas: Canvas) extends MutableShape {
   /**
     * Defines the path to draw the polygon onto the canvas
     * without actually printing it
