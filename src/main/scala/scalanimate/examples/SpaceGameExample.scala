@@ -19,7 +19,7 @@ object SpaceGameExample extends Example {
     var points = 0
 
     every(20.milliseconds){_ => {
-      
+
       // Update position of the rocket + its direction
       spaceCraft.x = canvas.mouseX
       spaceCraft.y = canvas.mouseY
