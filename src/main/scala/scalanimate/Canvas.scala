@@ -15,7 +15,7 @@ import scalanimate.shapes.mutable.MutableShape
   * @param element HTML element representing the canvas
   * @param shapes a list of shapes to by drawn into the canvas
   */
-class Canvas(val element: HTMLCanvasElement, val shapes: ListBuffer[MutableShape] = ListBuffer.empty) {
+class Canvas(val element: HTMLCanvasElement, var shapes: ListBuffer[MutableShape] = ListBuffer.empty) {
   /**
     * And here is the drawing context (in which we will actually draw)
     */
