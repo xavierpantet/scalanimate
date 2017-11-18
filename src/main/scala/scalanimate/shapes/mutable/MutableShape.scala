@@ -81,7 +81,7 @@ abstract class MutableShape(implicit val canvas: Canvas) extends Shape {
     * @param x the x coordinate of the point to be pointed
     * @param y the y coordinate of the point to be pointed
     */
-  final def pointTowards(x: Double, y: Double): Unit = angle = Angle.radians(Math.atan2(y, x))
+  final def pointTowards(x: Double, y: Double): Unit = angle = Angle.radians(Math.atan2(y - this.y, x - this.x))
 
   /**
     * Rotates the shape so that it points towards another given shape
