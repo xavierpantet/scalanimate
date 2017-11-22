@@ -20,29 +20,27 @@ object SimplePongExample extends Example {
     var gamePaused = true
 
     every(20.milliseconds){_ => {
-      manageEdges
-      if(!gamePaused && canvas.keysDown.contains("ArrowLeft"))
-        bar.move(-10, 0)
-      if(!gamePaused && canvas.keysDown.contains("ArrowRight"))
-        bar.move(10, 0)
-      if(canvas.keysDown.contains(" "))
+      if(!gamePaused) {
+        manageEdges
+        if (canvas.keysDown.contains("ArrowLeft"))
+          bar.move(-10, 0)
+        if (canvas.keysDown.contains("ArrowRight"))
+          bar.move(10, 0)
+      }
+      if (canvas.keysDown.contains(" "))
         gamePaused = !gamePaused
     }}
 
     def manageEdges: Unit = {
-      if(!gamePaused && ball.touchesEdge && !ball.touches(bar)){
-        if(ball.y <= 5 || ball.y >= height-5)
+      if(ball.touchesEdge){
+        if(ball.y <= 5 || ball.y >= height-5 || ball.touches(bar))
           dy = -dy
         if(ball.x <= 5 || ball.x >= width-5)
           dx = -dx
-        if(ball.y >= height-5)
+        if(!ball.touches(bar) && ball.y >= height-5)
           global.alert("Game Over!")
       }
-      if(ball.touches(bar))
-        dy = -dy
-
-      if(!gamePaused)
-        ball.move(dx, dy)
+      ball.move(dx, dy)
     }
   }
 }
