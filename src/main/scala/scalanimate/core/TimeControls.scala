@@ -53,6 +53,22 @@ object TimeControls {
     }
   }
 
+  /**
+    * Executes a portion without ever stopping. Waits for a certain duration between two executions.
+    * A waiting duration of 20.milliseconds gives pretty good results for animations in practice.
+    * This is a special version of every() that does not update the canvas automatically
+    * @param duration the duration we want to wait for
+    * @param counter the current counter of the number of executions
+    * @param f the portion of code we want to execute
+    * @param canvas the canvas to draw onto
+    */
+  def everyIncr(duration: Duration, counter: Int = 0)(f: Int => Unit)(implicit canvas: Canvas): Unit ={
+    setTimeout(duration.toMillis){
+      f(counter)
+      everyIncr(duration, counter+1)(f)
+    }
+  }
+
   def everySeq(duration: Duration, animations: Seq[Animation], counter: Int = 0)(f: (Int, Seq[Animation]) => Seq[Animation]): Unit ={
     setTimeout(duration.toMillis){
       everySeq(duration, f(counter, animations), counter+1)(f)
