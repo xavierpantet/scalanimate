@@ -29,7 +29,7 @@ object MicroSnakeExample extends Example {
         }
 
         if(puppy.touches(apple)){
-          canvas.shapes = canvas.shapes.take(2)
+          canvas.shapes.remove(apple)
           apple = getRandomApple
         }
       }}

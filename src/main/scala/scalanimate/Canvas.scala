@@ -5,7 +5,7 @@ import org.scalajs.dom.html.{Canvas => JSCanvas}
 import org.scalajs.dom.raw.{HTMLCanvasElement, KeyboardEvent, MouseEvent}
 import org.scalajs.dom.{CanvasRenderingContext2D, document}
 
-import scala.collection.mutable.ListBuffer
+import scala.collection.mutable.LinkedHashSet
 import scalanimate.shapes.mutable.MutableShape
 
 /**
@@ -15,7 +15,7 @@ import scalanimate.shapes.mutable.MutableShape
   * @param element HTML element representing the canvas
   * @param shapes a list of shapes to by drawn into the canvas
   */
-class Canvas(val element: HTMLCanvasElement, var shapes: ListBuffer[MutableShape] = ListBuffer.empty) {
+class Canvas(val element: HTMLCanvasElement, var shapes: LinkedHashSet[MutableShape] = LinkedHashSet.empty) {
   /**
     * And here is the drawing context (in which we will actually draw)
     */

@@ -29,7 +29,7 @@ object SpaceGameExample extends Example {
       if(spaceCraft.touches(dot)){
         points = points + 1
         println("You have " + points + " points!")
-        canvas.shapes = canvas.shapes.take(2)
+        canvas.shapes.remove(dot)
         dot = getRandomCircle
       }
     }}
