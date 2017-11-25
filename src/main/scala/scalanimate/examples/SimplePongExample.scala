@@ -1,5 +1,7 @@
 package scalanimate.examples
 
+import org.scalajs.dom.ext.KeyValue._
+
 import doodle.core.Color
 
 import scala.concurrent.duration._
@@ -29,12 +31,12 @@ object SimplePongExample extends Example {
     every(20.milliseconds){_ => {
       if(!gamePaused) {
         manageEdges
-        if (canvas.keysDown.contains("ArrowLeft"))
+        if (canvas.keysDown.contains(ArrowLeft))
           bar.move(-10, 0)
-        if (canvas.keysDown.contains("ArrowRight"))
+        if (canvas.keysDown.contains(ArrowRight))
           bar.move(10, 0)
       }
-      if (canvas.keysDown.contains(" "))
+      if (canvas.keysDown.contains(Spacebar))
         gamePaused = !gamePaused
     }}
 

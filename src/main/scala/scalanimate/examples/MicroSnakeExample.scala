@@ -1,7 +1,8 @@
 package scalanimate.examples
 
-import scala.concurrent.duration._
+import org.scalajs.dom.ext.KeyValue._
 
+import scala.concurrent.duration._
 import scala.util.Random
 import scalanimate.core.TimeControls._
 import scalanimate.shapes.mutable.{Background, Image}
@@ -14,16 +15,16 @@ object MicroSnakeExample extends Example {
       var apple = getRandomApple
 
       every(20.milliseconds){_ => {
-        if(canvas.keysDown.contains("ArrowUp")){
+        if(canvas.keysDown.contains(ArrowUp)){
           puppy.move(0, -10)
         }
-        else if(canvas.keysDown.contains("ArrowDown")){
+        else if(canvas.keysDown.contains(ArrowDown)){
           puppy.move(0, 10)
         }
-        else if(canvas.keysDown.contains("ArrowLeft")){
+        else if(canvas.keysDown.contains(ArrowLeft)){
           puppy.move(-10, 0)
         }
-        else if(canvas.keysDown.contains("ArrowRight")){
+        else if(canvas.keysDown.contains(ArrowRight)){
           puppy.move(10, 0)
         }
 
