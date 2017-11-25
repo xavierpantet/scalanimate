@@ -18,6 +18,7 @@ libraryDependencies += "underscoreio" %%% "doodle" % "0.8.2"
 // Dependencies to Scalatest
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.4"
 libraryDependencies += "org.scalatest" %%% "scalatest" % "3.0.4" % "test"
+resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
 // Bintray config
 bintrayRepository := "scalanimate"
