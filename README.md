@@ -40,6 +40,10 @@ every(20.milliseconds) { t => {
 }
 ~~~
 
+## Tutorial
+A Github tutorial repo is available [here](https://github.com/xavierpantet/scalanimate-tutorial).
+A detailed tutorial can be found [here](https://xavier.pantet.ch/scalanimate).
+
 ## Running
 ~~~ shell
 sbt
