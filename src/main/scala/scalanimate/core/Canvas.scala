@@ -1,4 +1,4 @@
-package scalanimate
+package scalanimate.core
 
 import org.scalajs.dom
 import org.scalajs.dom.html.{Canvas => JSCanvas}

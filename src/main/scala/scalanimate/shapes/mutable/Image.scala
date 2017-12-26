@@ -1,13 +1,11 @@
 package scalanimate.shapes.mutable
 
 import doodle.core.Angle
-
-import scalanimate.Canvas
 import org.scalajs.dom
 import org.scalajs.dom.raw.HTMLImageElement
 
 import scalanimate.core.Helper.Point
-import scalanimate.core.Vector2D
+import scalanimate.core.{Canvas, Vector2D}
 
 final case class Image(imageURL: String, override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
   /**

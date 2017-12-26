@@ -1,6 +1,6 @@
 package scalanimate.examples
 
-import scalanimate.Canvas
+import scalanimate.core.Canvas
 
 trait Example {
   val width = 600

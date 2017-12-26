@@ -1,11 +1,9 @@
 package scalanimate.core
 
 import scala.concurrent.duration._
-
 import scalanimate.animation.Animation
 import scala.concurrent.duration.Duration
 import scalajs.js.timers._
-import scalanimate.Canvas
 
 /**
   * TimeControls are methods that allow to execute a certain portion of the code

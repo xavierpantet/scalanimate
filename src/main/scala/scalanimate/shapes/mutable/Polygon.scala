@@ -1,8 +1,7 @@
 package scalanimate.shapes.mutable
 
-import scalanimate.Canvas
 import scalanimate.core.Helper.Point
-import scalanimate.core.{Helper, Vector2D}
+import scalanimate.core.{Canvas, Helper, Vector2D}
 
 final case class Polygon(override var x: Double, override var y: Double, var r: Double, var n: Int)(implicit override val canvas: Canvas) extends MutableShape {
   /**

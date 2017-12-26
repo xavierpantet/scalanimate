@@ -1,7 +1,6 @@
 package scalanimate.shapes.mutable
-import scalanimate.Canvas
 import scalanimate.core.Helper.Point
-import scalanimate.core.{Helper, Vector2D}
+import scalanimate.core.{Canvas, Helper, Vector2D}
 
 final case class Oval(override var x: Double, override var y: Double, var width: Double, var height: Double)(implicit override val canvas: Canvas) extends MutableShape {
   /**
